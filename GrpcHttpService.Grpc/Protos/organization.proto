@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "GrpcHttpService.Grpc.Protos";
+
+
+service OrganizationService {
+    rpc CreateOrganization (CreateOrganizationRequest) returns (CreateOrganizationResponse);
+    rpc GetOrganizationById (GetOrganizationByIdRequest) returns (GetOrganizationByIdResponse);
+    rpc DeleteOrganization (DeleteOrganizationRequest) returns (google.protobuf.Empty);
+    rpc RestoreOrganization (RestoreOrganizationRequest) returns (google.protobuf.Empty);
+}
+
+message CreateOrganizationRequest {
+    string name = 1;
+    string address = 2;
+}
+
+message CreateOrganizationResponse {
+    string id = 1;
+}
+
+message GetOrganizationByIdRequest {
+    string id = 1;
+}
+
+message GetOrganizationByIdResponse {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string created_at = 4;
+    string updated_at = 5;
+}
+
+message DeleteOrganizationRequest {
+    string id = 1;
+}
+
+message RestoreOrganizationRequest {
+    string id = 1;
+}
