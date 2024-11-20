@@ -1,0 +1,34 @@
+version: '3.4'
+
+services:
+  grpchttpservice.grpc:
+    image: ${DOCKER_REGISTRY-}grpchttpservicegrpc
+    build:
+      context: .
+      dockerfile: GrpcHttpService.Grpc/Dockerfile
+    container_name: grpc-service
+    ports:
+      - "5000:8080"
+      - "5001:8081"
+    depends_on:
+      - sqlserver
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__GrpcHttpServiceDB: "Server=sqlserver,1433;Database=GrpcDatabase;User Id=sa;Password=Admin123!;TrustServerCertificate=True"
+    networks:
+      - app-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqlserver
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Admin123!"
+      ACCEPT_EULA: "Y"                   
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
