@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>b9eeca2b-1f15-481c-aa5d-0ce75b9d3491</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,11 @@
   <ItemGroup>
     <Folder Include="Protos\" />
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GrpcHttpService.BusinessLogic\GrpcHttpService.BusinessLogic.csproj" />
+    <ProjectReference Include="..\GrpcHttpService.DataAccess\GrpcHttpService.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

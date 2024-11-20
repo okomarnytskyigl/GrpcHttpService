@@ -1,7 +1,11 @@
+using GrpcHttpService.BusinessLogic;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+
+builder.Services.RegisterBusinessLogicDependencies();
 
 var app = builder.Build();
 
