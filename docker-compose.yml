@@ -8,13 +8,27 @@ services:
       dockerfile: GrpcHttpService.Grpc/Dockerfile
     container_name: grpc-service
     ports:
-      - "5000:8080"
-      - "5001:8081"
+      - "5001:8080"
     depends_on:
       - sqlserver
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__GrpcHttpServiceDB: "Server=sqlserver,1433;Database=GrpcDatabase;User Id=sa;Password=Admin123!;TrustServerCertificate=True"
+    networks:
+      - app-network
+
+  grpchttpservice.http:
+    build:
+      context: .
+      dockerfile: GrpcHttpService.Http/Dockerfile
+    container_name: http-service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - grpchttpservice.grpc
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      GRPC_SERVICE_URL: "http://grpc-service:8080"
     networks:
       - app-network
 
